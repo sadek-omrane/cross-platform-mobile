@@ -24,9 +24,18 @@ class _ServiceDatasource implements ServiceDatasource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<HttpResponse<ApiResponse>> get() async {
+  Future<HttpResponse<ApiResponse>> get({
+    String? search,
+    int? createdById,
+    int? sectorId,
+  }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'search': search,
+      r'created_by_id': createdById,
+      r'sector_id': sectorId,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<HttpResponse<ApiResponse>>(Options(

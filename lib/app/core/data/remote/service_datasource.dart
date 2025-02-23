@@ -11,7 +11,11 @@ abstract class ServiceDatasource {
 
   //get
   @GET('/services')
-  Future<HttpResponse<ApiResponse>> get();
+  Future<HttpResponse<ApiResponse>> get({
+    @Query('search') String? search,
+    @Query('created_by_id') int? createdById,
+    @Query('sector_id') int? sectorId,
+  });
 
   //getById
   @GET('/services/{id}')

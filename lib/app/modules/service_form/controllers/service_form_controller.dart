@@ -24,11 +24,16 @@ class ServiceFormController extends GetxController
 
   final serviceImageFile = Rx<File?>(null);
 
-  final count = 0.obs;
+  int? id;
+
+  final isLoading = false.obs;
+
   @override
   void onInit() {
     super.onInit();
+    id = Get.arguments?['id'];
     getSectors();
+    buildForm();
   }
 
   @override
@@ -39,6 +44,26 @@ class ServiceFormController extends GetxController
   @override
   void onClose() {
     super.onClose();
+  }
+
+  void buildForm() async {
+    if (id != null) {
+      isLoading.value = true;
+      final res = await _serviceRepository.getById(id!);
+      res.fold(
+        (err) => ToastFactory.error(err),
+        (service) {
+          nameController.text = '${service.name}';
+          descriptionController.text = '${service.description}';
+          priceController.text = '${service.price}';
+          serviceImageIdController.text = '${service.serviceImageId}';
+          sectorIdController.text = '${service.sector?.id}';
+          print(service.sector?.id);
+          print(sectorIdController.text);
+        },
+      );
+      isLoading.value = false;
+    }
   }
 
   void create() async {
@@ -58,6 +83,29 @@ class ServiceFormController extends GetxController
       (err) => ToastFactory.error(err),
       (service) {
         ToastFactory.success('Service created successfully');
+        Get.back(result: true);
+      },
+    );
+  }
+
+  //update
+  void save() async {
+    if (!formKey.currentState!.validate()) return;
+    await uploadEFiles();
+    final data = {
+      'name': nameController.text,
+      'description': descriptionController.text,
+      'price': priceController.text,
+      'service_image_id': serviceImageIdController.text.isNotEmpty
+          ? int.tryParse(serviceImageIdController.text)
+          : null,
+      'sector_id': int.tryParse(sectorIdController.text),
+    };
+    final res = await _serviceRepository.update(id!, data);
+    res.fold(
+      (err) => ToastFactory.error(err),
+      (service) {
+        ToastFactory.success('Service updated successfully');
         Get.back(result: true);
       },
     );

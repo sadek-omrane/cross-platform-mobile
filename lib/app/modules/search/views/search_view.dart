@@ -1,6 +1,8 @@
+import 'package:cross_platforme_mobile/app/core/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 import '../controllers/search_controller.dart' as searchController;
 
@@ -9,15 +11,24 @@ class SearchView extends GetView<searchController.SearchController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('SearchView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'SearchView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            title: Text(
+              'Recommanded',
+              style: AppTextTheme.titleSmall,
+            ),
+            centerTitle: true,
+            actions: [
+              IconButton(
+                icon: Icon(Bootstrap.three_dots_vertical),
+                onPressed: () {},
+              ),
+              SizedBox(width: 10),
+            ],
+          ),
+          // search
+        ],
       ),
     );
   }

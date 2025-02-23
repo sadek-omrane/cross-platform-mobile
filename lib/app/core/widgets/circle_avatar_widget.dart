@@ -37,7 +37,7 @@ class CircleAvatarWidget extends StatelessWidget {
       child: id != null && id! > 0
           ? Image.network(
               '$EFILE_URL/${id}',
-              fit: fit,
+              fit: fit ?? BoxFit.cover,
               loadingBuilder: (context, child, loadingProgress) {
                 if (loadingProgress == null) return child;
                 return Center(

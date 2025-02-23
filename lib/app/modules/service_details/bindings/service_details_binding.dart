@@ -1,20 +1,20 @@
-import 'package:cross_platforme_mobile/app/core/data/remote/sector_datasource.dart';
+import 'package:cross_platforme_mobile/app/core/data/remote/chat_datasource.dart';
 import 'package:cross_platforme_mobile/app/core/data/remote/service_datasource.dart';
-import 'package:cross_platforme_mobile/app/core/repositories/sector_repository.dart';
+import 'package:cross_platforme_mobile/app/core/repositories/chat_repository.dart';
 import 'package:cross_platforme_mobile/app/core/repositories/service_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
-import '../controllers/home_controller.dart';
+import '../controllers/service_details_controller.dart';
 
-class HomeBinding extends Bindings {
+class ServiceDetailsBinding extends Bindings {
   @override
   void dependencies() {
     final Dio _dio = Get.find<Dio>();
     Get.lazyPut(() => ServiceDatasource(_dio));
     Get.lazyPut(() => ServiceRepository());
-    Get.lazyPut(() => SectorDataSource(_dio));
-    Get.lazyPut(() => SectorRepository());
-    Get.lazyPut(() => HomeController());
+    Get.lazyPut(() => ChatDatasource(_dio));
+    Get.lazyPut(() => ChatRepository());
+    Get.lazyPut(() => ServiceDetailsController());
   }
 }

@@ -76,38 +76,25 @@ class ProfileView extends GetView<ProfileController> {
                       ],
                     ),
                   ),
-                  Text(
-                    'My Services',
-                    style: AppTextTheme.bodyLarge,
-                    overflow: TextOverflow.ellipsis,
+                  Row(
+                    children: [
+                      Text(
+                        'My Services',
+                        style: AppTextTheme.bodyLarge,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Spacer(),
+                      IconButton(
+                        onPressed: () => Get.toNamed(Routes.SERVICE_FORM)?.then(
+                          (value) {
+                            if (value != null) controller.get();
+                          },
+                        ),
+                        icon: Icon(Bootstrap.plus_circle),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 10),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                      onPressed: () => Get.toNamed(Routes.SERVICE_FORM)?.then(
-                        (value) {
-                          if (value != null) controller.getServices();
-                        },
-                      ),
-                      child: Text(
-                        'Add Service',
-                        style: AppTextTheme.bodySemiLarge.copyWith(
-                          color: AppColors.white,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        backgroundColor: AppColors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  // list of services
                   controller.obx(
                     (state) => ListView.builder(
                       padding: EdgeInsets.zero,
@@ -117,7 +104,7 @@ class ProfileView extends GetView<ProfileController> {
                       itemBuilder: (context, index) {
                         final service = state?[index];
                         return SizedBox(
-                          height: 200,
+                          height: 240,
                           child: ServiceCardWidget(
                             showMenu: true,
                             service: service!,

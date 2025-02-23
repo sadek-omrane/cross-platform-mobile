@@ -16,6 +16,9 @@ abstract class UserDataSource {
   @POST('/users/login')
   Future<HttpResponse<ApiResponse>> login(@Body() Map<String, dynamic> data);
 
+  @POST('/users/register')
+  Future<HttpResponse<ApiResponse>> register(@Body() Map<String, dynamic> data);
+
   //update
   @PUT('/users/{id}')
   Future<HttpResponse<ApiResponse>> update({

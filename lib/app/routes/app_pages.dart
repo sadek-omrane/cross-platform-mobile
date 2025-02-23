@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 
-import '../core/middlewares/auth_middleware.dart';
 import '../modules/chat_messages/bindings/chat_messages_binding.dart';
 import '../modules/chat_messages/views/chat_messages_view.dart';
 import '../modules/chats/bindings/chats_binding.dart';
@@ -21,6 +20,8 @@ import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
 import '../modules/search/bindings/search_binding.dart';
 import '../modules/search/views/search_view.dart';
+import '../modules/service_details/bindings/service_details_binding.dart';
+import '../modules/service_details/views/service_details_view.dart';
 import '../modules/service_form/bindings/service_form_binding.dart';
 import '../modules/service_form/views/service_form_view.dart';
 import '../modules/user_form/bindings/user_form_binding.dart';
@@ -89,6 +90,7 @@ class AppPages {
       name: _Paths.CHATS,
       page: () => const ChatsView(),
       binding: ChatsBinding(),
+      transition: Transition.noTransition,
     ),
     GetPage(
       name: _Paths.CHAT_MESSAGES,
@@ -99,6 +101,11 @@ class AppPages {
       name: _Paths.SERVICE_FORM,
       page: () => const ServiceFormView(),
       binding: ServiceFormBinding(),
+    ),
+    GetPage(
+      name: _Paths.SERVICE_DETAILS,
+      page: () => const ServiceDetailsView(),
+      binding: ServiceDetailsBinding(),
     ),
   ];
 }

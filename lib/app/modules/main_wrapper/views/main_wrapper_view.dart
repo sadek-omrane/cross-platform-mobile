@@ -44,7 +44,7 @@ class MainWrapperView extends GetView<MainWrapperController> {
         BottomNavigationBarItem(
           icon: Icon(Bootstrap.search_heart),
           activeIcon: Icon(Bootstrap.search_heart_fill),
-          label: 'Search',
+          label: 'Recommanded',
         ),
         BottomNavigationBarItem(
           icon: Icon(Bootstrap.chat),

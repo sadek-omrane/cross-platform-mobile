@@ -7,7 +7,7 @@ class ApiResponse {
   final dynamic data;
   final bool? success;
   final String message;
-  final List? attributes;
+  final dynamic? attributes;
 
   ApiResponse({
     this.data,

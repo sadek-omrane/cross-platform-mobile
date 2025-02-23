@@ -32,7 +32,7 @@ class ChatModel {
 
   Map<String, dynamic> toJson() => _$ChatModelToJson(this);
 
-  UserModel get recipient {
-    return users!.firstWhere((element) => element.id != createdBy!.id!);
+  UserModel recipient(int me) {
+    return users!.firstWhere((element) => element.id != me);
   }
 }

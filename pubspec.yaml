@@ -38,6 +38,7 @@ dependencies:
   get: ^4.6.6
   icons_plus: ^5.0.0
   image_picker: ^1.1.2
+  readmore: ^3.0.0
   toastification: ^2.3.0
 
 dev_dependencies:

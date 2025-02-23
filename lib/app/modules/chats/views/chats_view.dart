@@ -47,14 +47,17 @@ class ChatsView extends GetView<ChatsController> {
                   return ListTile(
                     contentPadding: EdgeInsets.zero,
                     onTap: () {
-                      Get.toNamed(Routes.CHAT_MESSAGES);
+                      Get.toNamed(Routes.CHAT_MESSAGES,
+                          arguments: {'id': chat.id})?.then(
+                        (value) => controller.get(),
+                      );
                     },
                     leading: CircleAvatarWidget(
-                      id: chat.recipient.profileImageId,
+                      id: chat.recipient(controller.me!.id!).profileImageId,
                       raduis: 25,
                     ),
                     title: Text(
-                      '${chat.recipient.name}',
+                      '${chat.recipient(controller.me!.id!).name}',
                       style: AppTextTheme.bodyLarge,
                       overflow: TextOverflow.ellipsis,
                     ),

@@ -36,6 +36,19 @@ class UserRepository {
     }
   }
 
+  Future<Either<String, String>> register(Map<String, String> data) async {
+    try {
+      final response = await _userDataSource.register(data);
+      if (response.data.success == true) {
+        return Right(response.data.data);
+      } else {
+        return Left(response.data.message);
+      }
+    } on DioException catch (e) {
+      return Left("${e.message}");
+    }
+  }
+
   //update
   Future<Either<String, UserModel>> update(
       int id, Map<String, dynamic> data) async {

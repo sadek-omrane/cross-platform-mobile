@@ -20,8 +20,8 @@ class ProfileController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    loadMe();
-    getServices();
+    getMe();
+    get();
   }
 
   @override
@@ -34,7 +34,7 @@ class ProfileController extends GetxController
     super.onClose();
   }
 
-  void loadMe() async {
+  void getMe() async {
     final res = await _userRepository.me();
     res.fold(
       (err) {
@@ -54,9 +54,9 @@ class ProfileController extends GetxController
     );
   }
 
-  void getServices() async {
+  void get() async {
     change(null, status: RxStatus.loading());
-    final res = await _serviceRepository.get();
+    final res = await _serviceRepository.get(createdById: me?.id);
     res.fold((err) => ToastFactory.error(err), (services) {
       if (services.isEmpty) {
         change([], status: RxStatus.empty());

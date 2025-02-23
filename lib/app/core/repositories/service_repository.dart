@@ -7,9 +7,17 @@ import 'package:dartz/dartz.dart';
 class ServiceRepository {
   final _serviceDataSource = Get.find<ServiceDatasource>();
 
-  Future<Either<String, List<ServiceModel>>> get() async {
+  Future<Either<String, List<ServiceModel>>> get({
+    String? search,
+    int? createdById,
+    int? sectorId,
+  }) async {
     try {
-      final response = await _serviceDataSource.get();
+      final response = await _serviceDataSource.get(
+        search: search,
+        createdById: createdById,
+        sectorId: sectorId,
+      );
       if (response.data.success == true) {
         return Right((response.data.data as List)
             .map((e) => ServiceModel.fromJson(e))
