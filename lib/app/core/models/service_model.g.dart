@@ -15,6 +15,7 @@ ServiceModel _$ServiceModelFromJson(Map<String, dynamic> json) => ServiceModel(
       description: json['description'] as String?,
       price: json['price'] as String?,
       serviceImageId: (json['service_image_id'] as num?)?.toInt(),
+      isFavorite: json['is_favorite'] as bool?,
       sector: json['sector'] == null
           ? null
           : SectorModel.fromJson(json['sector'] as Map<String, dynamic>),
@@ -30,6 +31,7 @@ Map<String, dynamic> _$ServiceModelToJson(ServiceModel instance) =>
       'description': instance.description,
       'price': instance.price,
       'service_image_id': instance.serviceImageId,
+      'is_favorite': instance.isFavorite,
       'sector': instance.sector,
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,

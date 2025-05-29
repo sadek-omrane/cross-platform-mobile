@@ -12,6 +12,18 @@ ThemeData get appTheme {
       iconTheme: IconThemeData(
         color: AppColors.black,
       ),
+      shape: Border(
+        bottom: BorderSide(
+          color: AppColors.accent2,
+          width: .5,
+        ),
+      ),
+    ),
+    bottomAppBarTheme: BottomAppBarTheme(
+      padding: EdgeInsets.zero,
+      height: 50,
+      color: AppColors.white,
+      elevation: 0,
     ),
     progressIndicatorTheme: ProgressIndicatorThemeData(
       color: AppColors.accent6,
@@ -48,6 +60,11 @@ ThemeData get appTheme {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
+    ),
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: AppColors.blue,
+      selectionColor: AppColors.blue.withOpacity(0.5),
+      selectionHandleColor: AppColors.blue,
     ),
     inputDecorationTheme: InputDecorationTheme(
       floatingLabelAlignment: FloatingLabelAlignment.start,
@@ -111,6 +128,13 @@ ThemeData get appTheme {
         minimumSize: Size(25, 25), */
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
+    ),
+    tabBarTheme: TabBarTheme(
+      labelColor: AppColors.blue,
+      unselectedLabelColor: AppColors.accent8,
+      indicatorSize: TabBarIndicatorSize.tab,
+      indicatorColor: AppColors.blue,
+      overlayColor: MaterialStateProperty.all(AppColors.transparent),
     ),
     dialogTheme: DialogTheme(
       backgroundColor: AppColors.white,

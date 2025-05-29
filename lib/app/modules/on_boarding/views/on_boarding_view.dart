@@ -1,8 +1,8 @@
 import 'package:cross_platforme_mobile/app/core/colors/app_colors.dart';
 import 'package:cross_platforme_mobile/app/core/theme/app_text_theme.dart';
 import 'package:cross_platforme_mobile/app/routes/app_pages.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 
@@ -14,6 +14,12 @@ class OnBoardingView extends GetView<OnBoardingController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.blue,
+      appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+        toolbarHeight: 0,
+        backgroundColor: AppColors.transparent,
+        shape: Border(),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
@@ -53,7 +59,7 @@ class OnBoardingView extends GetView<OnBoardingController> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () => Get.toNamed(Routes.REGISTER),
+                onPressed: () => Get.toNamed(Routes.MAIN_WRAPPER),
                 child: Text(
                   'Get Started',
                   style: AppTextTheme.bodyLarge.copyWith(

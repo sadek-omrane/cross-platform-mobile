@@ -14,6 +14,8 @@ class ServiceModel {
   String? price;
   @JsonKey(name: 'service_image_id')
   int? serviceImageId;
+  @JsonKey(name: 'is_favorite')
+  bool? isFavorite;
   @JsonKey(name: 'sector')
   SectorModel? sector;
   @JsonKey(name: 'created_at')
@@ -28,6 +30,7 @@ class ServiceModel {
     this.description,
     this.price,
     this.serviceImageId,
+    this.isFavorite,
     this.sector,
     this.createdAt,
     this.updatedAt,

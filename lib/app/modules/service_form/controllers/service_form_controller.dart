@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cross_platforme_mobile/app/core/controllers/base_controller.dart';
 import 'package:cross_platforme_mobile/app/core/models/sector_model.dart';
 import 'package:cross_platforme_mobile/app/core/repositories/efile_repository.dart';
 import 'package:cross_platforme_mobile/app/core/repositories/sector_repository.dart';
@@ -7,7 +8,7 @@ import 'package:cross_platforme_mobile/app/core/utils/toast_factory.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ServiceFormController extends GetxController
+class ServiceFormController extends BaseController
     with StateMixin<List<SectorModel>> {
   //repositories
   final _serviceRepository = Get.find<ServiceRepository>();
@@ -58,8 +59,6 @@ class ServiceFormController extends GetxController
           priceController.text = '${service.price}';
           serviceImageIdController.text = '${service.serviceImageId}';
           sectorIdController.text = '${service.sector?.id}';
-          print(service.sector?.id);
-          print(sectorIdController.text);
         },
       );
       isLoading.value = false;
@@ -134,6 +133,7 @@ class ServiceFormController extends GetxController
             sectors,
             status: RxStatus.success(),
           );
+          id == null ? sectorIdController.text = '${sectors.first.id}' : null;
         }
       },
     );

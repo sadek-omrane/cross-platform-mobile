@@ -1,14 +1,17 @@
+import 'package:cross_platforme_mobile/app/core/controllers/base_controller.dart';
 import 'package:cross_platforme_mobile/app/core/models/service_model.dart';
 import 'package:cross_platforme_mobile/app/core/repositories/chat_repository.dart';
+import 'package:cross_platforme_mobile/app/core/repositories/favorite_repository.dart';
 import 'package:cross_platforme_mobile/app/core/repositories/service_repository.dart';
 import 'package:cross_platforme_mobile/app/core/utils/toast_factory.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ServiceDetailsController extends GetxController
+class ServiceDetailsController extends BaseController
     with StateMixin<ServiceModel> {
   //repositories
   final _serviceRepository = Get.find<ServiceRepository>();
+  final _favoriteRepository = Get.find<FavoriteRepository>();
   final _chatRepository = Get.find<ChatRepository>();
 
   final searchController = TextEditingController();
@@ -71,6 +74,32 @@ class ServiceDetailsController extends GetxController
       (msg) {
         ToastFactory.success('Service has been deleted');
         Get.back();
+      },
+    );
+  }
+
+  void favorite() async {
+    final res = await _favoriteRepository.create({
+      'service_id': state?.id,
+    });
+    res.fold(
+      (err) => ToastFactory.error(err),
+      (service) {
+        state?.isFavorite = true;
+        change(state!, status: RxStatus.success());
+        ToastFactory.success('Service has been added to favorites');
+      },
+    );
+  }
+
+  void unfavorite() async {
+    final res = await _favoriteRepository.delete(state!.id!);
+    res.fold(
+      (err) => ToastFactory.error(err),
+      (msg) {
+        state?.isFavorite = false;
+        change(state!, status: RxStatus.success());
+        ToastFactory.success('Service has been removed from favorites');
       },
     );
   }

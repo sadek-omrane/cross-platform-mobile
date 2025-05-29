@@ -1,26 +1,29 @@
+import 'package:cross_platforme_mobile/app/core/controllers/base_controller.dart';
 import 'package:cross_platforme_mobile/app/core/models/service_model.dart';
-import 'package:cross_platforme_mobile/app/core/models/user_model.dart';
 import 'package:cross_platforme_mobile/app/core/repositories/service_repository.dart';
-import 'package:cross_platforme_mobile/app/core/repositories/user_repository.dart';
-import 'package:cross_platforme_mobile/app/core/services/secure_storage_service.dart';
 import 'package:cross_platforme_mobile/app/core/utils/toast_factory.dart';
-import 'package:cross_platforme_mobile/app/routes/app_pages.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProfileController extends GetxController
-    with StateMixin<List<ServiceModel>> {
-  // repositories
-  final _userRepository = Get.find<UserRepository>();
+class ProfileController extends BaseController
+    with StateMixin<List<ServiceModel>>, GetSingleTickerProviderStateMixin {
   final _serviceRepository = Get.find<ServiceRepository>();
-  //services
-  final _secureStorageService = Get.find<SercureStorageService>();
 
-  UserModel? get me => _secureStorageService.user;
+  late TabController tabController;
 
   @override
   void onInit() {
     super.onInit();
-    getMe();
+    tabController = TabController(length: 2, vsync: this);
+    tabController.addListener(() {
+      if (tabController.indexIsChanging) {
+        if (tabController.index == 0) {
+          get();
+        } else {
+          change(null, status: RxStatus.empty());
+        }
+      }
+    });
     get();
   }
 
@@ -32,26 +35,6 @@ class ProfileController extends GetxController
   @override
   void onClose() {
     super.onClose();
-  }
-
-  void getMe() async {
-    final res = await _userRepository.me();
-    res.fold(
-      (err) {
-        _secureStorageService.removeToken();
-        _secureStorageService.removeUser();
-        Get.offAllNamed(Routes.LOGIN);
-      },
-      (user) => _secureStorageService.setUser(user),
-    );
-  }
-
-  void logout() async {
-    final res = await _userRepository.logout();
-    res.fold(
-      (err) => ToastFactory.error(err),
-      (msg) => Get.offAllNamed(Routes.LOGIN),
-    );
   }
 
   void get() async {

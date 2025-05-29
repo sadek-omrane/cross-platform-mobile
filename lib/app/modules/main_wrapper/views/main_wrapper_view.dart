@@ -27,36 +27,63 @@ class MainWrapperView extends GetView<MainWrapperController> {
   }
 
   Widget buttomNavigationBar(GetDelegate delegate, int currentIndex) {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      selectedItemColor: AppColors.blue,
-      unselectedItemColor: AppColors.accent6,
-      currentIndex: currentIndex,
-      onTap: (value) {
-        if (value != 4) delegate.toNamed(controller.routes[value]);
-      },
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Bootstrap.house),
-          activeIcon: Icon(Bootstrap.house_fill),
-          label: 'Home',
+    return BottomAppBar(
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: AppColors.accent2,
+              width: .5,
+            ),
+          ),
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Bootstrap.search_heart),
-          activeIcon: Icon(Bootstrap.search_heart_fill),
-          label: 'Recommanded',
+        child: Row(
+          children: [
+            Expanded(
+              child: IconButton(
+                icon: Icon(
+                    currentIndex == 0 ? Bootstrap.house_fill : Bootstrap.house),
+                onPressed: () {
+                  if (currentIndex != 0) delegate.toNamed(controller.routes[0]);
+                },
+                color: currentIndex == 0 ? AppColors.blue : AppColors.accent6,
+              ),
+            ),
+            Expanded(
+              child: IconButton(
+                icon: Icon(currentIndex == 1
+                    ? Bootstrap.search_heart_fill
+                    : Bootstrap.search_heart),
+                onPressed: () {
+                  if (currentIndex != 1) delegate.toNamed(controller.routes[1]);
+                },
+                color: currentIndex == 1 ? AppColors.blue : AppColors.accent6,
+              ),
+            ),
+            Expanded(
+              child: IconButton(
+                icon: Icon(
+                    currentIndex == 2 ? Bootstrap.chat_fill : Bootstrap.chat),
+                onPressed: () {
+                  if (currentIndex != 2) delegate.toNamed(controller.routes[2]);
+                },
+                color: currentIndex == 2 ? AppColors.blue : AppColors.accent6,
+              ),
+            ),
+            Expanded(
+              child: IconButton(
+                icon: Icon(currentIndex == 3
+                    ? Bootstrap.person_fill
+                    : Bootstrap.person),
+                onPressed: () {
+                  if (currentIndex != 3) delegate.toNamed(controller.routes[3]);
+                },
+                color: currentIndex == 3 ? AppColors.blue : AppColors.accent6,
+              ),
+            ),
+          ],
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Bootstrap.chat),
-          activeIcon: Icon(Bootstrap.chat_fill),
-          label: 'Chats',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Bootstrap.person),
-          activeIcon: Icon(Bootstrap.person_fill),
-          label: 'Profile',
-        ),
-      ],
+      ),
     );
   }
 }

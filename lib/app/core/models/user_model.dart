@@ -5,6 +5,8 @@ part 'user_model.g.dart';
 class UserModel {
   int? id;
   String? name;
+  String? bio;
+  String? phone;
   @JsonKey(name: 'profile_image_id')
   int? profileImageId;
   @JsonKey(name: 'cover_image_id')
@@ -15,6 +17,8 @@ class UserModel {
   UserModel({
     this.id,
     this.name,
+    this.bio,
+    this.phone,
     this.profileImageId,
     this.coverImageId,
     this.email,

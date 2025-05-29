@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../core/middlewares/auth_middleware.dart';
 import '../modules/chat_messages/bindings/chat_messages_binding.dart';
 import '../modules/chat_messages/views/chat_messages_view.dart';
 import '../modules/chats/bindings/chats_binding.dart';
@@ -24,6 +25,8 @@ import '../modules/service_details/bindings/service_details_binding.dart';
 import '../modules/service_details/views/service_details_view.dart';
 import '../modules/service_form/bindings/service_form_binding.dart';
 import '../modules/service_form/views/service_form_view.dart';
+import '../modules/settings/bindings/settings_binding.dart';
+import '../modules/settings/views/settings_view.dart';
 import '../modules/user_form/bindings/user_form_binding.dart';
 import '../modules/user_form/views/user_form_view.dart';
 
@@ -32,13 +35,14 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.MAIN_WRAPPER;
+  static const INITIAL = Routes.ON_BOARDING;
 
   static final routes = [
     GetPage(
       name: _Paths.LOGIN,
       page: () => const LoginView(),
       binding: LoginBinding(),
+      transition: Transition.noTransition,
     ),
     GetPage(
       name: _Paths.ON_BOARDING,
@@ -49,7 +53,7 @@ class AppPages {
       name: _Paths.MAIN_WRAPPER,
       page: () => const MainWrapperView(),
       binding: MainWrapperBinding(),
-      //middlewares: [AuthMiddleware()],
+      middlewares: [AuthMiddleware()],
       transition: Transition.noTransition,
     ),
     GetPage(
@@ -80,6 +84,7 @@ class AppPages {
       name: _Paths.REGISTER,
       page: () => const RegisterView(),
       binding: RegisterBinding(),
+      transition: Transition.noTransition,
     ),
     GetPage(
       name: _Paths.USER_FORM,
@@ -106,6 +111,11 @@ class AppPages {
       name: _Paths.SERVICE_DETAILS,
       page: () => const ServiceDetailsView(),
       binding: ServiceDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SETTINGS,
+      page: () => const SettingsView(),
+      binding: SettingsBinding(),
     ),
   ];
 }

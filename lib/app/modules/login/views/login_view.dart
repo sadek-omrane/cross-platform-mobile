@@ -35,7 +35,6 @@ class LoginView extends GetView<LoginController> {
                   style: AppTextTheme.bodyMedium,
                   textAlign: TextAlign.center,
                 ),
-
                 SizedBox(height: 20),
                 //email
                 TextFormField(
@@ -108,7 +107,7 @@ class LoginView extends GetView<LoginController> {
                           decoration: TextDecoration.underline,
                         ),
                         recognizer: TapGestureRecognizer()
-                          ..onTap = () => Get.toNamed(Routes.REGISTER),
+                          ..onTap = () => Get.offNamed(Routes.REGISTER),
                       ),
                     ],
                   ),

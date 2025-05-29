@@ -1,24 +1,20 @@
 import 'dart:io';
-
-import 'package:cross_platforme_mobile/app/core/models/user_model.dart';
+import 'package:cross_platforme_mobile/app/core/controllers/base_controller.dart';
 import 'package:cross_platforme_mobile/app/core/repositories/efile_repository.dart';
-import 'package:cross_platforme_mobile/app/core/repositories/user_repository.dart';
-import 'package:cross_platforme_mobile/app/core/services/secure_storage_service.dart';
 import 'package:cross_platforme_mobile/app/core/utils/toast_factory.dart';
 import 'package:cross_platforme_mobile/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class UserFormController extends GetxController {
+class UserFormController extends BaseController {
+  @override
+  bool callGetMe = false;
   // repositories
-  final _userRepository = Get.find<UserRepository>();
   final _efileRepository = Get.find<EFileRepository>();
-  //services
-  final _secureStorageService = Get.find<SercureStorageService>();
-
-  UserModel? get me => _secureStorageService.user;
 
   final nameController = TextEditingController();
+  final bioController = TextEditingController();
+  final phoneController = TextEditingController();
   final profileImageIdController = TextEditingController();
   final coverImageIdController = TextEditingController();
   final emailController = TextEditingController();
@@ -45,18 +41,20 @@ class UserFormController extends GetxController {
   }
 
   void buildForm() async {
-    final res = await _userRepository.me();
+    final res = await userRepository.me();
     res.fold(
       (err) {
-        _secureStorageService.removeToken();
-        _secureStorageService.removeUser();
+        secureStorageService.removeToken();
+        secureStorageService.removeUser();
         Get.offAllNamed(Routes.LOGIN);
       },
       (user) {
-        nameController.text = '${user.name}';
-        profileImageIdController.text = '${user.profileImageId}';
-        coverImageIdController.text = '${user.coverImageId}';
-        emailController.text = '${user.email}';
+        nameController.text = '${user.name ?? ''}';
+        bioController.text = '${user.bio ?? ''}';
+        phoneController.text = '${user.phone ?? ''}';
+        profileImageIdController.text = '${user.profileImageId ?? ''}';
+        coverImageIdController.text = '${user.coverImageId ?? ''}';
+        emailController.text = '${user.email ?? ''}';
       },
     );
   }
@@ -66,6 +64,8 @@ class UserFormController extends GetxController {
     await uploadEFiles();
     final data = {
       'name': nameController.text,
+      'bio': bioController.text,
+      'phone': phoneController.text,
       'profile_image_id': profileImageIdController.text.isNotEmpty
           ? int.tryParse(profileImageIdController.text)
           : null,
@@ -74,11 +74,11 @@ class UserFormController extends GetxController {
           : null,
       'email': emailController.text,
     };
-    final res = await _userRepository.update(me!.id!, data);
+    final res = await userRepository.update(me!.id!, data);
     res.fold(
       (err) => ToastFactory.error(err),
       (user) {
-        _secureStorageService.setUser(user);
+        secureStorageService.setUser(user);
         Get.back(result: true);
       },
     );

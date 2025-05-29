@@ -25,12 +25,13 @@ class ServiceFormView extends GetView<ServiceFormController> {
       body: Form(
         key: controller.formKey,
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: Obx(
             () => controller.isLoading.isFalse
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      SizedBox(height: 10),
                       // service name
                       TextFormField(
                         controller: controller.nameController,
@@ -58,7 +59,7 @@ class ServiceFormView extends GetView<ServiceFormController> {
                       TextFormField(
                         controller: controller.priceController,
                         decoration: InputDecoration(
-                          labelText: 'Service Price *',
+                          labelText: 'Price per hour *',
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -74,14 +75,14 @@ class ServiceFormView extends GetView<ServiceFormController> {
                       controller.obx(
                         (state) {
                           return DropdownButtonFormField<String>(
-                            value: state!.first.id.toString(),
+                            value: controller.sectorIdController.text,
                             onChanged: (value) {
                               controller.sectorIdController.text = value!;
                             },
                             menuMaxHeight: 300,
                             dropdownColor: AppColors.white,
                             items: state
-                                .map(
+                                ?.map(
                                   (sector) => DropdownMenuItem<String>(
                                     value: sector.id.toString(),
                                     child: Text(sector.name!),

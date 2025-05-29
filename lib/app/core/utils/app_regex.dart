@@ -4,8 +4,9 @@ class AppRegex {
   }
 
   static bool isPhoneNumber(String phone) {
-    // is french phone number format
-    return RegExp(r'^0[1-9]([-. ]?[0-9]{2}){4}$').hasMatch(phone);
+    // phone number that begin with +
+    // Ex : +33 651234567
+    return RegExp(r'^\+\d{1,3} \d{8,15}$').hasMatch(phone);
   }
 
   static bool isPassword(String password) {

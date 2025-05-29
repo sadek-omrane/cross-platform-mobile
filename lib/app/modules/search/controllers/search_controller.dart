@@ -1,9 +1,6 @@
-import 'package:get/get.dart';
+import 'package:cross_platforme_mobile/app/core/controllers/base_controller.dart';
 
-class SearchController extends GetxController {
-  //TODO: Implement SearchController
-
-  final count = 0.obs;
+class SearchController extends BaseController {
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +15,4 @@ class SearchController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

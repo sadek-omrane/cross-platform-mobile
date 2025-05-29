@@ -35,6 +35,7 @@ class ChatsView extends GetView<ChatsController> {
               SizedBox(width: 10),
             ],
           ),
+          SliverToBoxAdapter(child: SizedBox(height: 10)),
           // display chats list
           SliverToBoxAdapter(
             child: controller.obx(

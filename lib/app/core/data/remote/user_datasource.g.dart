@@ -14,7 +14,7 @@ class _UserDataSource implements UserDataSource {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??= 'http://127.0.0.1:8000/api';
+    baseUrl ??= 'http://127.0.0.1:8001/api';
   }
 
   final Dio _dio;

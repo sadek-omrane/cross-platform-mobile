@@ -132,7 +132,7 @@ class RegisterView extends GetView<RegisterController> {
                           decoration: TextDecoration.underline,
                         ),
                         recognizer: TapGestureRecognizer()
-                          ..onTap = () => Get.toNamed(Routes.LOGIN),
+                          ..onTap = () => Get.offNamed(Routes.LOGIN),
                       ),
                     ],
                   ),

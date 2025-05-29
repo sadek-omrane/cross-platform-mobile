@@ -1,7 +1,6 @@
 import 'package:cross_platforme_mobile/app/core/colors/app_colors.dart';
 import 'package:cross_platforme_mobile/app/core/theme/app_text_theme.dart';
 import 'package:cross_platforme_mobile/app/core/utils/bottom_sheet_factory.dart';
-import 'package:cross_platforme_mobile/app/core/utils/toast_factory.dart';
 import 'package:cross_platforme_mobile/app/core/widgets/circle_avatar_widget.dart';
 import 'package:cross_platforme_mobile/app/core/widgets/image_widget.dart';
 import 'package:cross_platforme_mobile/app/modules/service_details/views/widgets/contact_widget.dart';
@@ -59,13 +58,13 @@ class ServiceDetailsView extends GetView<ServiceDetailsController> {
                 SizedBox(width: 10),
               ],
             ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+            SliverToBoxAdapter(child: SizedBox(height: 10)),
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              sliver: SliverToBoxAdapter(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    SizedBox(height: 20),
                     Row(
                       children: [
                         CircleAvatarWidget(
@@ -73,18 +72,38 @@ class ServiceDetailsView extends GetView<ServiceDetailsController> {
                           raduis: 25,
                         ),
                         SizedBox(width: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${state?.createdBy?.name}',
-                              style: AppTextTheme.bodyMedium,
-                            ),
-                            Text(
-                              '${state?.createdBy?.email}',
-                              style: AppTextTheme.bodySmall,
-                            ),
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${state?.createdBy?.name}',
+                                style: AppTextTheme.bodyMedium,
+                              ),
+                              Text(
+                                '${state?.createdBy?.email}',
+                                style: AppTextTheme.bodySmall,
+                              ),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            if (state?.isFavorite == true) {
+                              controller.unfavorite();
+                            } else {
+                              controller.favorite();
+                            }
+                          },
+                          style: IconButton.styleFrom(
+                            backgroundColor: AppColors.white,
+                          ),
+                          icon: Icon(
+                            state?.isFavorite == true
+                                ? Bootstrap.heart_fill
+                                : Bootstrap.heart,
+                            color: AppColors.blue,
+                          ),
                         ),
                       ],
                     ),

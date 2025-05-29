@@ -19,10 +19,11 @@ class UserFormView extends GetView<UserFormController> {
       body: Form(
         key: controller.formKey,
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              SizedBox(height: 10),
               Center(
                 child: ImageInputWidget(
                   hintText: 'Profile pic',
@@ -40,6 +41,29 @@ class UserFormView extends GetView<UserFormController> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 10),
+              //bio
+              TextFormField(
+                controller: controller.bioController,
+                decoration: InputDecoration(labelText: 'Bio'),
+                maxLines: 3,
+              ),
+              SizedBox(height: 10),
+              //phone
+              TextFormField(
+                controller: controller.phoneController,
+                decoration: InputDecoration(
+                  labelText: 'Phone',
+                  hintText: '+33 651234567',
+                ),
+                validator: (value) {
+                  if (value?.isNotEmpty == true &&
+                      !AppRegex.isPhoneNumber(value!)) {
+                    return 'Please enter a valid phone';
                   }
                   return null;
                 },

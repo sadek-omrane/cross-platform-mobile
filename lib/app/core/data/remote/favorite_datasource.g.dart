@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'efile_datasource.dart';
+part of 'favorite_datasource.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'efile_datasource.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class _EFileDataSource implements EFileDataSource {
-  _EFileDataSource(
+class _FavoriteDataSource implements FavoriteDataSource {
+  _FavoriteDataSource(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -24,19 +24,48 @@ class _EFileDataSource implements EFileDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<HttpResponse<ApiResponse>> upload(File file) async {
+  Future<HttpResponse<ApiResponse>> get({String? search}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'search': search};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<HttpResponse<ApiResponse>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/favorites',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ApiResponse _value;
+    try {
+      _value = ApiResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<ApiResponse>> create(
+      {required Map<String, dynamic> body}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.files.add(MapEntry(
-      'file',
-      MultipartFile.fromFileSync(
-        file.path,
-        filename: file.path.split(Platform.pathSeparator).last,
-        contentType: MediaType.parse('image/png'),
-      ),
-    ));
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
     final _options = _setStreamType<HttpResponse<ApiResponse>>(Options(
       method: 'POST',
       headers: _headers,
@@ -44,7 +73,7 @@ class _EFileDataSource implements EFileDataSource {
     )
         .compose(
           _dio.options,
-          '/efiles/upload',
+          '/favorites',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -78,7 +107,7 @@ class _EFileDataSource implements EFileDataSource {
     )
         .compose(
           _dio.options,
-          '/efiles/${id}',
+          '/favorites/${id}',
           queryParameters: queryParameters,
           data: _data,
         )
